@@ -4,9 +4,9 @@ local origDoContextualDblClick = ISInventoryPane.doContextualDblClick;
 function ISInventoryPane:doContextualDblClick(item)
 
 	-- Books
-    if item:getCategory() == 'Literature' then
+	if item:getCategory() == 'Literature' then
 		ISInventoryPaneContextMenu.readItem(item, 0)
-    end
+	end
 
 	-- Pills
 	if instanceof(item, 'Drainable') and luautils.stringStarts(item:getType(), 'Pills') then
@@ -24,7 +24,7 @@ function ISInventoryPane:doContextualDblClick(item)
 	end
 
 	-- Keys
-    if item:getCategory() == 'Key' then
+	if item:getCategory() == 'Key' then
 		local player = getPlayer()
 		local containers = player:getInventory():getItemsFromCategory('Container')
 		for i = 0, containers:size() - 1 do
@@ -34,7 +34,7 @@ function ISInventoryPane:doContextualDblClick(item)
 				break
 			end
 		end
-    end
+	end
 
-    return origDoContextualDblClick(self, item);
+	return origDoContextualDblClick(self, item);
 end
