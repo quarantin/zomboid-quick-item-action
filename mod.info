@@ -1,0 +1,4 @@
+name=Quick Item Action
+id=QuickItemAction
+description=Add missing action when you double-click an item from the inventory panel. For example double-clicking a book will make your character to start reading it.
+poster=poster.png
