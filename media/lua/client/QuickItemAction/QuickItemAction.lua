@@ -29,7 +29,7 @@ function ISInventoryPane:doContextualDblClick(item)
 		local containers = player:getInventory():getItemsFromCategory('Container')
 		for i = 0, containers:size() - 1 do
 			local container = containers:get(i)
-			if player:isEquipped(container) and container:getType() == 'KeyRing' then
+			if player:isEquipped(container) or container:getType() == 'KeyRing' then
 				container:getInventory():addItem(item)
 				break
 			end
