@@ -8,14 +8,19 @@ function ISInventoryPane:doContextualDblClick(item)
 		ISInventoryPaneContextMenu.readItem(item, 0)
 	end
 
-	-- Pills
-	if instanceof(item, 'Drainable') and luautils.stringStarts(item:getType(), 'Pills') then
-		ISInventoryPaneContextMenu.takePill(item, 0)
-	end
-
 	-- Cigarettes
 	if item:getName() == 'Cigarettes' then
 		ISInventoryPaneContextMenu.eatItem(item, 1, 0)
+	end
+
+	-- Maps
+	if luautils.stringEnds(item:getType(), 'Map') then
+		ISInventoryPaneContextMenu.onCheckMap(item, 0)
+	end
+
+	-- Pills
+	if instanceof(item, 'Drainable') and luautils.stringStarts(item:getType(), 'Pills') then
+		ISInventoryPaneContextMenu.takePill(item, 0)
 	end
 
 	-- Umbrellas
