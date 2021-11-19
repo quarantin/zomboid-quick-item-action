@@ -13,6 +13,19 @@ function ISInventoryPane:doContextualDblClick(item)
 		ISInventoryPaneContextMenu.eatItem(item, 1, 0)
 	end
 
+	-- Keys
+	if item:getCategory() == 'Key' then
+		local player = getPlayer()
+		local containers = player:getInventory():getItemsFromCategory('Container')
+		for i = 0, containers:size() - 1 do
+			local container = containers:get(i)
+			if player:isEquipped(container) or container:getType() == 'KeyRing' then
+				container:getInventory():addItem(item)
+				break
+			end
+		end
+	end
+
 	-- Maps
 	if luautils.stringEnds(item:getType(), 'Map') then
 		ISInventoryPaneContextMenu.onCheckMap(item, 0)
@@ -26,19 +39,6 @@ function ISInventoryPane:doContextualDblClick(item)
 	-- Umbrellas
 	if item:getName() == 'Umbrella' then
 		ISInventoryPaneContextMenu.equipWeapon(item, false, false, 0)
-	end
-
-	-- Keys
-	if item:getCategory() == 'Key' then
-		local player = getPlayer()
-		local containers = player:getInventory():getItemsFromCategory('Container')
-		for i = 0, containers:size() - 1 do
-			local container = containers:get(i)
-			if player:isEquipped(container) or container:getType() == 'KeyRing' then
-				container:getInventory():addItem(item)
-				break
-			end
-		end
 	end
 
 	return origDoContextualDblClick(self, item);
