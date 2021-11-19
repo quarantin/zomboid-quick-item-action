@@ -4,18 +4,23 @@ local origDoContextualDblClick = ISInventoryPane.doContextualDblClick;
 function ISInventoryPane:doContextualDblClick(item)
 
 	local player = getPlayer()
+	local inventory = player:getInventory()
+
+	local itemName = item:getName()
+	local itemType = item:getType()
+	local itemCategory = item:getScriptItem():getTypeString()
 
 	-- Books
-	if item:getScriptItem():getTypeString() == 'Literature' then
+	if itemCategory == 'Literature' then
 		ISInventoryPaneContextMenu.readItem(item, 0)
 
 	-- Cigarettes
-	elseif item:getName() == 'Cigarettes' then
+	elseif itemName == 'Cigarettes' then
 		ISInventoryPaneContextMenu.eatItem(item, 1, 0)
 
 	-- Keys
-	elseif item:getScriptItem():getTypeString() == 'Key' then
-		local containers = player:getInventory():getItemsFromCategory('Container')
+	elseif itemCategory == 'Key' then
+		local containers = inventory:getItemsFromCategory('Container')
 		for i = 0, containers:size() - 1 do
 			local container = containers:get(i)
 			if player:isEquipped(container) or container:getType() == 'KeyRing' then
@@ -25,17 +30,16 @@ function ISInventoryPane:doContextualDblClick(item)
 		end
 
 	-- Maps
-	elseif luautils.stringEnds(item:getType(), 'Map') then
+	elseif luautils.stringEnds(itemType, 'Map') then
 		ISInventoryPaneContextMenu.onCheckMap(item, 0)
 
 	-- Pills
-	elseif instanceof(item, 'Drainable') and luautils.stringStarts(item:getType(), 'Pills') then
+	elseif instanceof(item, 'Drainable') and luautils.stringStarts(itemType, 'Pills') then
 		ISInventoryPaneContextMenu.takePill(item, 0)
 
 	-- Seed Packets
-	elseif item:getScriptItem():getTypeString() == 'Normal' and (luautils.stringEnds(item:getType(), 'Seed') or luautils.stringEnds(item:getType(), 'Seeds')) then
+	elseif itemCategory == 'Normal' and (luautils.stringEnds(itemType, 'Seed') or luautils.stringEnds(itemType, 'Seeds')) then
 
-		local inventory = player:getInventory()
 		local containers = ISInventoryPaneContextMenu.getContainers(player)
 
 		local recipes = RecipeManager.getUniqueRecipeItems(item, player, containers)
@@ -52,7 +56,7 @@ function ISInventoryPane:doContextualDblClick(item)
 		end
 
 	-- Umbrellas
-	elseif item:getName() == 'Umbrella' then
+	elseif itemName == 'Umbrella' then
 		ISInventoryPaneContextMenu.equipWeapon(item, false, false, 0)
 	end
 
