@@ -37,8 +37,8 @@ function ISInventoryPane:doContextualDblClick(item)
 	elseif instanceof(item, 'Drainable') and luautils.stringStarts(itemType, 'Pills') then
 		ISInventoryPaneContextMenu.takePill(item, 0)
 
-	-- Seed Packets
-	elseif itemCategory == 'Normal' and (luautils.stringEnds(itemType, 'Seed') or luautils.stringEnds(itemType, 'Seeds')) then
+	-- Apply Recipes: open/close seed packet, nails box
+	elseif itemCategory == 'Normal' and (luautils.stringEnds(itemType, 'Seed') or luautils.stringEnds(itemType, 'Seeds') or luautils.stringStarts(itemType, 'Nails')) then
 
 		local containers = ISInventoryPaneContextMenu.getContainers(player)
 
