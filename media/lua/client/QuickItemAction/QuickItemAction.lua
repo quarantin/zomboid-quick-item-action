@@ -32,6 +32,25 @@ function ISInventoryPane:doContextualDblClick(item)
 	elseif instanceof(item, 'Drainable') and luautils.stringStarts(item:getType(), 'Pills') then
 		ISInventoryPaneContextMenu.takePill(item, 0)
 
+	-- Seed Packets
+	elseif item:getScriptItem():getTypeString() == 'Normal' and (luautils.stringEnds(item:getType(), 'Seed') or luautils.stringEnds(item:getType(), 'Seeds')) then
+
+		local inventory = player:getInventory()
+		local containers = ISInventoryPaneContextMenu.getContainers(player)
+
+		local recipes = RecipeManager.getUniqueRecipeItems(item, player, containers)
+		if recipes and recipes:size() > 0 then
+
+			local recipe = recipes:get(0)
+			local howMany = RecipeManager.getNumberOfTimesRecipeCanBeDone(recipe, player, containers, item)
+			if howMany < 1 then
+				return
+			end
+
+			local action = ISCraftAction:new(player, item, recipe:getTimeToMake(), recipe, inventory, containers)
+			ISTimedActionQueue.add(action)
+		end
+
 	-- Umbrellas
 	elseif item:getName() == 'Umbrella' then
 		ISInventoryPaneContextMenu.equipWeapon(item, false, false, 0)
