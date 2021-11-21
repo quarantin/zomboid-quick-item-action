@@ -1,3 +1,11 @@
+function getJavaField(object, fieldName)
+	for i = 0, getNumClassFields(object) - 1 do
+		local javaField = getClassField(object, i)
+		if javaField and javaField:getName() == fieldName then
+			return getClassFieldVal(object, javaField)
+		end
+	end
+end
 
 local origDoContextualDblClick = ISInventoryPane.doContextualDblClick;
 
@@ -5,17 +13,19 @@ function ISInventoryPane:doContextualDblClick(item)
 
 	local player = getPlayer()
 	local inventory = player:getInventory()
+	local scriptItem = item:getScriptItem()
 
 	local itemName = item:getName()
 	local itemType = item:getType()
-	local itemCategory = item:getScriptItem():getTypeString()
+	local itemEatType = getJavaField(scriptItem, 'eatType')
+	local itemCategory = scriptItem:getTypeString()
 
 	-- Books
 	if itemCategory == 'Literature' then
 		ISInventoryPaneContextMenu.readItem(item, 0)
 
 	-- Cigarettes
-	elseif itemName == 'Cigarettes' then
+	elseif itemEatType == 'Cigarettes' then
 		ISInventoryPaneContextMenu.eatItem(item, 1, 0)
 
 	-- Keys
