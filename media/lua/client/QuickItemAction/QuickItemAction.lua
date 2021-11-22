@@ -7,6 +7,18 @@ function getJavaField(object, fieldName)
 	end
 end
 
+function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType)
+
+	if itemCategory == 'Normal' then
+		return itemDisplayCategory == 'Ammo' or
+			luautils.stringStarts(itemType, 'Nails') or
+			luautils.stringStarts(itemType, 'Paperclip') or
+			luautils.stringStarts(itemType, 'Screws') or
+			luautils.stringEnds(itemType, 'Seed') or
+			luautils.stringEnds(itemType, 'Seeds')
+	end
+end
+
 local origDoContextualDblClick = ISInventoryPane.doContextualDblClick;
 
 function ISInventoryPane:doContextualDblClick(item)
@@ -19,6 +31,9 @@ function ISInventoryPane:doContextualDblClick(item)
 	local itemType = item:getType()
 	local itemEatType = getJavaField(scriptItem, 'eatType')
 	local itemCategory = scriptItem:getTypeString()
+	local itemDisplayCategory = scriptItem:getDisplayCategory()
+
+	--print('DEBUG:', itemName, itemType, itemEatType, itemCategory, itemDisplayCategory)
 
 	-- Books
 	if itemCategory == 'Literature' then
@@ -47,8 +62,8 @@ function ISInventoryPane:doContextualDblClick(item)
 	elseif instanceof(item, 'Drainable') and luautils.stringStarts(itemType, 'Pills') then
 		ISInventoryPaneContextMenu.takePill(item, 0)
 
-	-- Apply Recipes: open/close seed packet, nails box
-	elseif itemCategory == 'Normal' and (luautils.stringEnds(itemType, 'Seed') or luautils.stringEnds(itemType, 'Seeds') or luautils.stringStarts(itemType, 'Nails')) then
+	-- Apply Recipes
+	elseif toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType) then
 
 		local containers = ISInventoryPaneContextMenu.getContainers(player)
 
