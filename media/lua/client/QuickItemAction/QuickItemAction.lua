@@ -1,7 +1,7 @@
 function getJavaField(object, fieldName)
 	for i = 0, getNumClassFields(object) - 1 do
 		local javaField = getClassField(object, i)
-		if javaField and javaField:getName() == fieldName then
+		if luautils.stringEnds(tostring(javaField), '.' .. fieldName) then
 			return getClassFieldVal(object, javaField)
 		end
 	end
