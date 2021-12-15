@@ -34,5 +34,5 @@ description=Please submit any bug you find here:
 description=https://github.com/quarantin/zomboid-quick-item-action/issues
 description=
 description=Enjoy! ;D
-tags=Build 41;Interface
+tags=Build 41;Interface;Multiplayer
 visibility=public
