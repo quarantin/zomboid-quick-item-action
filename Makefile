@@ -17,7 +17,7 @@ build:
 		$(BUNDLEDIR)/mod.info
 
 bundle: build
-	cd $(BUNDLE) && zip -r $(NAME).zip $(NAME)
+	cd $(BUNDLE) && zip -r $(NAME)-$(VERSION).zip $(NAME)
 
 steambundle: bundle
 	rm -rf $(STEAMBUNDLE) && mkdir -p $(STEAMBUNDLEDIR) && \
