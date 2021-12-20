@@ -1,11 +1,3 @@
-function getJavaField(object, fieldName)
-	for i = 0, getNumClassFields(object) - 1 do
-		local javaField = getClassField(object, i)
-		if luautils.stringEnds(tostring(javaField), '.' .. fieldName) then
-			return getClassFieldVal(object, javaField)
-		end
-	end
-end
 
 function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType)
 
@@ -29,7 +21,7 @@ function ISInventoryPane:doContextualDblClick(item)
 
 	local itemName = item:getName()
 	local itemType = item:getType()
-	local itemEatType = getJavaField(scriptItem, 'eatType')
+	local itemEatType = item:getEatType()
 	local itemCategory = scriptItem:getTypeString()
 	local itemDisplayCategory = scriptItem:getDisplayCategory()
 
