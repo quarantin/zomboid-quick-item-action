@@ -25,7 +25,13 @@ function ISInventoryPane:doContextualDblClick(item)
 	local itemCategory = scriptItem:getTypeString()
 	local itemDisplayCategory = scriptItem:getDisplayCategory()
 
-	--print('DEBUG:', itemName, itemType, itemEatType, itemCategory, itemDisplayCategory)
+	if isDebugEnabled() then
+		print('DEBUG: Name:', itemName)
+		print('DEBUG: Type:', itemType)
+		print('DEBUG: EatType:', itemEatType)
+		print('DEBUG: Category:', itemCategory)
+		print('DEBUG: DisplayCategory:', itemDisplayCategory)
+	end
 
 	-- Books
 	if itemCategory == 'Literature' then
