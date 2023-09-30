@@ -1,8 +1,6 @@
 version=1
 id=2642486124
 title=Quick Item Action
-description=[img]https://i.imgur.com/p7Fv1Z6.gif[/img]
-description=
 description=[h1]Add missing double-click actions for some items[/h1]
 description=This simple mod adds some missing actions when you double-click items in your inventory.
 description=
@@ -21,6 +19,11 @@ description=[*]Read maps
 description=[*]Smoke cigarettes
 description=[*]Take pills
 description=[/list]
+description=
+description=[h1]Support me on Ko-fi[/h1]
+description=[url=https://ko-fi.com/quarantin]
+description=[img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img]
+description=[/url]
 description=
 description=[h1]Version[/h1]
 description=Latest version:
