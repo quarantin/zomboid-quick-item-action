@@ -53,7 +53,7 @@ function ISInventoryPane:doContextualDblClick(item)
 		end
 
 	-- Maps
-	elseif luautils.stringEnds(itemType, 'Map') then
+	elseif itemCategory == 'Map' or itemDisplayCategory == 'Cartography' then
 		ISInventoryPaneContextMenu.onCheckMap(item, 0)
 
 	-- Pills
