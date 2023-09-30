@@ -1,3 +1,11 @@
+local pillsTypes = {
+	Antibiotics          = true,
+	Pills                = true,
+	PillsAntiDep         = true,
+	PillsBeta            = true,
+	PillsSleepingTablets = true,
+	PillsVitamins        = true,
+}
 
 function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType)
 
@@ -57,7 +65,7 @@ function ISInventoryPane:doContextualDblClick(item)
 		ISInventoryPaneContextMenu.onCheckMap(item, 0)
 
 	-- Pills
-	elseif instanceof(item, 'Drainable') and luautils.stringStarts(itemType, 'Pills') then
+	elseif itemDisplayCategory == 'FirstAid' and pillsTypes[itemType] ~= nil then
 		ISInventoryPaneContextMenu.takePill(item, 0)
 
 	-- Apply Recipes
