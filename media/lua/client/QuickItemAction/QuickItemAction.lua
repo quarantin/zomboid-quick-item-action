@@ -7,7 +7,7 @@ local pillsTypes = {
 	PillsVitamins        = true,
 }
 
-function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType)
+local function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType)
 
 	if itemCategory == 'Normal' then
 		return itemDisplayCategory == 'Ammo' or
