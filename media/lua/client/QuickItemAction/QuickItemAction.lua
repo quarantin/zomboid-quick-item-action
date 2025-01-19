@@ -7,7 +7,7 @@ local pillsTypes = {
 	PillsVitamins        = true,
 }
 
-local function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType)
+local function shouldHandleRecipe(itemName, itemCategory, itemDisplayCategory, itemType)
 
 	if itemCategory == 'Normal' then
 		return itemDisplayCategory == 'Ammo' or
@@ -101,7 +101,7 @@ function ISInventoryPane:doContextualDblClick(item)
 		ISInventoryPaneContextMenu.takePill(item, playerNum)
 
 	-- Use Recipes
-	elseif toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType) then
+	elseif shouldHandleRecipe(itemName, itemCategory, itemDisplayCategory, itemType) then
 		useRecipe(item, player)
 
 	-- Umbrellas
