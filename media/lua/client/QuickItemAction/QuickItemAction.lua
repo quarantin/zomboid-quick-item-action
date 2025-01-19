@@ -55,6 +55,7 @@ local origDoContextualDblClick = ISInventoryPane.doContextualDblClick;
 function ISInventoryPane:doContextualDblClick(item)
 
 	local player = getPlayer()
+	local playerNum = player:getPlayerNum()
 	local inventory = player:getInventory()
 	local scriptItem = item:getScriptItem()
 
@@ -74,11 +75,11 @@ function ISInventoryPane:doContextualDblClick(item)
 
 	-- Books
 	if itemCategory == 'Literature' then
-		ISInventoryPaneContextMenu.readItem(item, 0)
+		ISInventoryPaneContextMenu.readItem(item, playerNum)
 
 	-- Cigarettes
 	elseif itemEatType == 'Cigarettes' then
-		ISInventoryPaneContextMenu.eatItem(item, 1, 0)
+		ISInventoryPaneContextMenu.eatItem(item, 1, playerNum)
 
 	-- Keys
 	elseif itemCategory == 'Key' then
@@ -93,11 +94,11 @@ function ISInventoryPane:doContextualDblClick(item)
 
 	-- Maps
 	elseif itemCategory == 'Map' or itemDisplayCategory == 'Cartography' then
-		ISInventoryPaneContextMenu.onCheckMap(item, 0)
+		ISInventoryPaneContextMenu.onCheckMap(item, playerNum)
 
 	-- Pills
 	elseif itemDisplayCategory == 'FirstAid' and pillsTypes[itemType] ~= nil then
-		ISInventoryPaneContextMenu.takePill(item, 0)
+		ISInventoryPaneContextMenu.takePill(item, playerNum)
 
 	-- Use Recipes
 	elseif toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType) then
@@ -105,7 +106,7 @@ function ISInventoryPane:doContextualDblClick(item)
 
 	-- Umbrellas
 	elseif itemName == 'Umbrella' then
-		ISInventoryPaneContextMenu.equipWeapon(item, false, false, 0)
+		ISInventoryPaneContextMenu.equipWeapon(item, false, false, playerNum)
 	end
 
 	return origDoContextualDblClick(self, item);
