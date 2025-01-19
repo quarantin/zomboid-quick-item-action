@@ -83,6 +83,7 @@ function ISInventoryPane:doContextualDblClick(item)
 
 	-- Keys
 	elseif itemCategory == 'Key' then
+
 		local containers = inventory:getItemsFromCategory('Container')
 		for i = 0, containers:size() - 1 do
 			local container = containers:get(i)
@@ -100,13 +101,15 @@ function ISInventoryPane:doContextualDblClick(item)
 	elseif itemDisplayCategory == 'FirstAid' and pillsTypes[itemType] ~= nil then
 		ISInventoryPaneContextMenu.takePill(item, playerNum)
 
+	-- Umbrellas
+	elseif itemName == 'Umbrella' then
+		ISInventoryPaneContextMenu.equipWeapon(item, false, false, playerNum)
+
 	-- Use Recipes
 	elseif shouldHandleRecipe(itemName, itemCategory, itemDisplayCategory, itemType) then
 		useRecipe(item, player)
 
-	-- Umbrellas
-	elseif itemName == 'Umbrella' then
-		ISInventoryPaneContextMenu.equipWeapon(item, false, false, playerNum)
+
 	end
 
 	return origDoContextualDblClick(self, item);
