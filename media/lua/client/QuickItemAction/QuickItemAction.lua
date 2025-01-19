@@ -19,6 +19,37 @@ local function toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType
 	end
 end
 
+local function useRecipe(item, player)
+
+	local containers = ISInventoryPaneContextMenu.getContainers(player)
+
+	if getCore():getGameVersion():getMajor() < 42 then
+
+		local recipes = RecipeManager.getUniqueRecipeItems(item, player, containers)
+		if recipes and recipes:size() > 0 then
+
+			local recipe = recipes:get(0)
+			local howMany = RecipeManager.getNumberOfTimesRecipeCanBeDone(recipe, player, containers, item)
+			if howMany < 1 then
+				return
+			end
+
+			local action = ISCraftAction:new(player, item, recipe:getTimeToMake(), recipe, inventory, containers)
+			ISTimedActionQueue.add(action)
+		end
+
+	else
+
+		local recipes = CraftRecipeManager.getUniqueRecipeItems(item, player, containers)
+		if recipes and recipes:size() > 0 then
+
+			local recipe = recipes:get(0)
+			ISInventoryPaneContextMenu.OnNewCraft(item, recipe, player:getIndex(), false)
+		end
+
+	end
+end
+
 local origDoContextualDblClick = ISInventoryPane.doContextualDblClick;
 
 function ISInventoryPane:doContextualDblClick(item)
@@ -68,23 +99,9 @@ function ISInventoryPane:doContextualDblClick(item)
 	elseif itemDisplayCategory == 'FirstAid' and pillsTypes[itemType] ~= nil then
 		ISInventoryPaneContextMenu.takePill(item, 0)
 
-	-- Apply Recipes
+	-- Use Recipes
 	elseif toBeHandled(itemName, itemCategory, itemDisplayCategory, itemType) then
-
-		local containers = ISInventoryPaneContextMenu.getContainers(player)
-
-		local recipes = RecipeManager.getUniqueRecipeItems(item, player, containers)
-		if recipes and recipes:size() > 0 then
-
-			local recipe = recipes:get(0)
-			local howMany = RecipeManager.getNumberOfTimesRecipeCanBeDone(recipe, player, containers, item)
-			if howMany < 1 then
-				return
-			end
-
-			local action = ISCraftAction:new(player, item, recipe:getTimeToMake(), recipe, inventory, containers)
-			ISTimedActionQueue.add(action)
-		end
+		useRecipe(item, player)
 
 	-- Umbrellas
 	elseif itemName == 'Umbrella' then
