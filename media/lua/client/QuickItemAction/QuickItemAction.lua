@@ -64,7 +64,7 @@ local function shouldHandleRecipe(itemName, itemCategory, itemDisplayCategory, i
 	end
 end
 
-local function useRecipe(player, playerNum, recipe, item, containers)
+local function useRecipe(player, playerNum, recipe, item, inventory, containers)
 
 	if getCore():getGameVersion():getMajor() < 42 then
 
@@ -189,7 +189,7 @@ function ISInventoryPane:doContextualDblClick(item)
 
 		if recipes and recipes:size() > 0 then
 			local recipe = selectRecipe(itemType, recipes)
-			useRecipe(player, playerNum, recipe, item, containers)
+			useRecipe(player, playerNum, recipe, item, inventory, containers)
 		end
 	end
 
