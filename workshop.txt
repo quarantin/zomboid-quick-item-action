@@ -25,11 +25,6 @@ description=[*]Take pills
 description=[*]Unpack most kind of boxes
 description=[/list]
 description=
-description=[h1]Support me on Ko-fi[/h1]
-description=[url=https://ko-fi.com/quarantin]
-description=[img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img]
-description=[/url]
-description=
 description=[h1]Version[/h1]
 description=Latest version: §VERSION§
 description=
@@ -40,6 +35,11 @@ description=[h1]Bugs[/h1]
 description=Feedbacks are welcome. You can find me on Project Zomboid Discord server.
 description=Please submit any bug you find here:
 description=https://github.com/quarantin/zomboid-quick-item-action/issues
+description=
+description=[h1]Support Me[/h1]
+description=If you like my work please consider supporting me on Ko-Fi!
+description=
+description=[url=https://ko-fi.com/quarantin][img]https://raw.githubusercontent.com/ChuckTheSheep/chuckImages/main/kofi.png[/img][/url]
 description=
 description=Enjoy! ;D
 tags=Build 41;Build 42;Interface;Multiplayer
