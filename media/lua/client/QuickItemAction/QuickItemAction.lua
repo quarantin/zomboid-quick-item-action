@@ -7,7 +7,7 @@ local pillsTypes = {
 	PillsVitamins        = true,
 }
 
-local cansTypes = {
+local liquidCansTypes = {
 	BeerBottle           = true,
 	BeerCan              = true,
 	Pop                  = true,
@@ -54,13 +54,16 @@ local function shouldHandleRecipe(itemName, itemCategory, itemDisplayCategory, i
 			or luautils.stringEnds(itemType, 'Seed')
 			or luautils.stringEnds(itemType, 'Seeds')
 			or luautils.stringEnds(itemType, '_Box')
-			or (cansTypes[itemType] and string.find(itemName, '(Sealed)'))
+			or (liquidCansTypes[itemType] and string.find(itemName, '(Sealed)'))
 
 	elseif itemCategory == 'Drainable' then
 		return handledRecipesTypes[itemType]
 
 	elseif itemCategory == 'Literature' and itemDisplayCategory == 'Gardening' then
 		return luautils.stringEnds(itemType, 'BagSeed') or luautils.stringEnds(itemType, 'BagSeed2')
+
+	elseif itemCategory == "Food" and itemDisplayCategory == "Food" then
+		return luautils.stringStarts(itemName, "Canned") and not luautils.stringEnds(itemType, "Open")
 	end
 end
 
@@ -166,7 +169,7 @@ function ISInventoryPane:doContextualDblClick(item)
 		end
 
 	-- Liquids
-	elseif cansTypes[itemType] and not string.find(itemName, '(Sealed)') and not string.find(itemName, 'Empty') then
+	elseif liquidCansTypes[itemType] and not string.find(itemName, '(Sealed)') and not string.find(itemName, 'Empty') then
 		ISInventoryPaneContextMenu.onDrinkFluid(item, 1, player)
 
 	-- Maps
