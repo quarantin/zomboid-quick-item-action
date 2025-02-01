@@ -64,6 +64,7 @@ local function shouldHandleRecipe(itemName, itemCategory, itemDisplayCategory, i
 
 	elseif itemCategory == 'Food' and itemDisplayCategory == 'Food' then
 		return itemType == 'HotdogPack'
+			or itemType == 'BunsHamburger'
 			or (luautils.stringStarts(itemName, 'Canned') and not luautils.stringEnds(itemType, 'Open'))
 	end
 end
