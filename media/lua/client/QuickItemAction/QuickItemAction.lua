@@ -141,11 +141,14 @@ function ISInventoryPane:doContextualDblClick(item)
 	local itemDisplayCategory = scriptItem:getDisplayCategory()
 
 	if isDebugEnabled() then
+		print('-----------------------')
+		print('DEBUG: Version:', getCore():getGameVersion())
 		print('DEBUG: Name:', itemName)
 		print('DEBUG: Type:', itemType)
 		print('DEBUG: EatType:', itemEatType)
 		print('DEBUG: Category:', itemCategory)
 		print('DEBUG: DisplayCategory:', itemDisplayCategory)
+		print('-----------------------')
 	end
 
 	-- Books
